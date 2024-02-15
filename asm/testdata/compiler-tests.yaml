@@ -45,7 +45,7 @@ expr-macro-passing-literal-to-builtin:
   input:
     code: |
       #define customMacro(x) .address(x) + 2
-      PUSH customMacro(0x658bdf435d810c91414ec09147daa6db62406379)
+      PUSH customMacro(0xcb63376c47978271565f56deb45495afa69e59c16ab2)
   output:
     errors:
       - ':2: .address(...) requires literal argument'

@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fjl/geas/asm"
+	"github.com/core-coin/geas/asm"
 )
 
 func main() {

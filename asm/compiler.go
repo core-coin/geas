@@ -28,7 +28,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/fjl/geas/internal/evm"
+	"github.com/core-coin/geas/internal/evm"
 )
 
 // Compiler performs the assembling.

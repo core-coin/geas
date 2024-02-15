@@ -2,7 +2,7 @@
 ;;;
 ;;; calldata structure
 ;;; +--------------------+------------------+--------------------+-------------------+
-;;; | selector (4 bytes) | zeros (12 bytes) | spender (20 bytes) | amount (32 bytes) |
+;;; | selector (4 bytes) | zeros (12 bytes) | spender (22 bytes) | amount (32 bytes) |
 ;;; +--------------------+------------------+--------------------+-------------------+
 
 #define S_approve .selector("approve(address,uint256)")

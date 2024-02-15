@@ -2,7 +2,7 @@
 ;;;
 ;;; calldata structure
 ;;; +--------------------+------------------+---------------+-------------------+
-;;; | selector (4 bytes) | zeros (12 bytes) | to (20 bytes) | amount (32 bytes) |
+;;; | selector (4 bytes) | zeros (12 bytes) | to (22 bytes) | amount (32 bytes) |
 ;;; +--------------------+------------------+---------------+-------------------+
 
 #define S_transfer .selector("transfer(address,uint256)")

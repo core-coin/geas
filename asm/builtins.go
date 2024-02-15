@@ -21,10 +21,9 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
-	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/core-coin/go-core/v2/common"
+	"github.com/core-coin/go-core/v2/signer/fourbyte"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -94,7 +93,7 @@ func keccak256Macro(e *evaluator, env *evalEnvironment, call *macroCallExpr) (*b
 	if err != nil {
 		return nil, err
 	}
-	w := sha3.NewLegacyKeccak256()
+	w := sha3.New256()
 	w.Write(bytes)
 	hash := w.Sum(nil)
 	return new(big.Int).SetBytes(hash[:]), nil
@@ -113,10 +112,10 @@ func selectorMacro(e *evaluator, env *evalEnvironment, call *macroCallExpr) (*bi
 		return nil, errSelectorWantsLiteral
 	}
 	text := lit.tok.text
-	if _, err := abi.ParseSelector(text); err != nil {
+	if _, err := fourbyte.ParseSelector(text); err != nil {
 		return nil, fmt.Errorf("invalid ABI selector")
 	}
-	w := sha3.NewLegacyKeccak256()
+	w := sha3.New256()
 	w.Write([]byte(text))
 	hash := w.Sum(nil)
 	return new(big.Int).SetBytes(hash[:4]), nil
@@ -124,8 +123,7 @@ func selectorMacro(e *evaluator, env *evalEnvironment, call *macroCallExpr) (*bi
 
 var (
 	errAddressWantsLiteral = errors.New(".address(...) requires literal argument")
-	errAddressInvalid      = errors.New("invalid Ethereum address")
-	errAddressChecksum     = errors.New("address has invalid checksum")
+	errAddressInvalid      = errors.New("invalid Core Blockchain address")
 )
 
 func addressMacro(e *evaluator, env *evalEnvironment, call *macroCallExpr) (*big.Int, error) {
@@ -137,16 +135,12 @@ func addressMacro(e *evaluator, env *evalEnvironment, call *macroCallExpr) (*big
 		return nil, errAddressWantsLiteral
 	}
 	text := lit.tok.text
-	addr, err := common.NewMixedcaseAddressFromString(text)
+	addr, err := common.HexToAddress(text)
 	if err != nil {
 		return nil, errAddressInvalid
 	}
-	if isChecksumAddress(text) {
-		if !addr.ValidChecksum() {
-			return nil, errAddressChecksum
-		}
-	}
-	return addr.Address().Big(), nil
+
+	return new(big.Int).SetBytes(addr[:]), nil
 }
 
 // evalAsBytes gives the byte value of an expression.
@@ -162,8 +156,4 @@ func evalAsBytes(e *evaluator, env *evalEnvironment, expr astExpr) ([]byte, erro
 		return nil, err
 	}
 	return v.Bytes(), nil
-}
-
-func isChecksumAddress(str string) bool {
-	return strings.ContainsAny(str, "ABCDEF")
 }

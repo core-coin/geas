@@ -2,7 +2,7 @@
 ;;;
 ;;; calldata structure
 ;;; +--------------------+------------------+------------------+------------------+--------------------+
-;;; | selector (4 bytes) | zeros (12 bytes) | owner (20 bytes) | zeros (12 bytes) | spender (20 bytes) |
+;;; | selector (4 bytes) | zeros (12 bytes) | owner (20 bytes) | zeros (12 bytes) | spender (22 bytes) |
 ;;; +--------------------+------------------+------------------+------------------+--------------------+
 
 #define S_allowance .selector("allowance(address,address)")

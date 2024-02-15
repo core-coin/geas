@@ -2,7 +2,7 @@
 ;;;
 ;;; calldata structure
 ;;; +--------------------+------------------+--------------------+
-;;; | selector (4 bytes) | zeros (12 bytes) | address (20 bytes) |
+;;; | selector (4 bytes) | zeros (12 bytes) | address (22 bytes) |
 ;;; +--------------------+------------------+--------------------+
 
 #define S_balanceOf .selector("balanceOf(address)")

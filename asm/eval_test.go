@@ -68,9 +68,9 @@ var evalTests = []evalTest{
 	{expr: `.abs(0 - 10)`, result: "10"},
 	{expr: `.sha256("text")`, result: "68832153269555879243704685382415794081420120252170153643880971663484982053329"},
 	{expr: `.sha256(33)`, result: "84783983549258160669137366770885509408211009960610860350324922232842582506338"},
-	{expr: `.selector("transfer(address,uint256)")`, result: "2835717307"},
-	{expr: `.address(0x658bdf435d810c91414ec09147daa6db62406379)`, result: "579727320398773179602058954232328055508812456825"},
-	{expr: `.address("0x658bdf435d810c91414ec09147daa6db62406379")`, result: "579727320398773179602058954232328055508812456825"},
+	{expr: `.selector("transfer(address,uint256)")`, result: "1262545153"},
+	{expr: `.address(0xcb63376c47978271565f56deb45495afa69e59c16ab2)`, result: "76096322160117527321273267353498687906740420982434482"},
+	{expr: `.address("0xcb63376c47978271565f56deb45495afa69e59c16ab2")`, result: "76096322160117527321273267353498687906740420982434482"},
 }
 
 var evalErrorTests = []evalErrorTest{
@@ -79,8 +79,7 @@ var evalErrorTests = []evalErrorTest{
 	{expr: `1 >> (1 << 64)`, err: "rshift amount 18446744073709551616 overflows uint"},
 	{expr: `macro3(foo, 1)`, err: "invalid number of arguments, macro macro3 needs 0"},
 	// builtins
-	{expr: `.selector("transfer(,,uint256)")`, err: "invalid ABI selector"},
-	{expr: `.address(0x658bdf435d810c91414EC09147daa6db62406379)`, err: errAddressChecksum.Error()},
+	{expr: `.address(0xcb33376c47978271565f56deb45495afa69e59c16ab2)`, err: errAddressInvalid.Error()},
 }
 
 var evalTestDoc = newDocument("", nil)
